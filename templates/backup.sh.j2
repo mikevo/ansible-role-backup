@@ -12,7 +12,9 @@ RSYNC=/usr/bin/rsync
 
 # Backup individual directories.
 {% for directory in backup_directories %}
-$RSYNC {{ backup_rsync_options }} --delete --exclude-from '{{ backup_path }}/backup-exclude.txt' {{ directory }} $REMOTE{{ backup_remote_base_path }}/{{ backup_identifier }}/{{ directory }}
+DEST=$REMOTE/{{ backup_remote_base_path }}/{{ backup_identifier }}/{{ directory }}
+mkdir -p $DEST
+$RSYNC {{ backup_rsync_options }} --delete --exclude-from '{{ backup_path }}/backup-exclude.txt' {{ directory }} $DEST
 {% endfor %}
 
 {% if backup_mysql %}
