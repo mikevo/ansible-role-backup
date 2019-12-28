@@ -6,6 +6,10 @@
 #
 # @author Jeff Geerling, 2014, 2017
 
+{% if backup_random_delay %}
+sleep `tr -cd 0-9 </dev/urandom | head -c 3`
+{% endif %}
+
 # Common variables.
 REMOTE="{{ backup_remote_connection }}"
 RSYNC=/usr/bin/rsync
